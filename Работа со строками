@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string s1 = Console.ReadLine();
+            string s2 = Console.ReadLine();
+            string alpha = Console.ReadLine();
+            Console.WriteLine(Srav(s1,s2,alpha));
+        }
+        static string Srav(string s1,string s2,string alpha)
+        {
+            int n = Math.Min(s1.Length,s2.Length);
+            for(int i = 0; i < n; i++)
+            {
+                if (alpha.IndexOf(s1[i]) > alpha.IndexOf(s2[i]))
+                {
+                    return ">";  
+                } else if (alpha.IndexOf(s1[i]) < alpha.IndexOf(s2[i]))
+                {
+                    return "<";
+                }
+            }
+            if (s1.Length > s2.Length)
+            {
+                return ">";
+            }
+            else if (s1.Length<s2.Length)
+            {
+                return "<";
+            }
+            else
+            {
+                return "=";
+            }
+        }
+    }
+}
