@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            string obr = Console.ReadLine();
+            int[] result = KMP(s, obr);
+            for (int i = 0; i < result.Length; i++)
+            {
+                if (result[i] != -1)
+                    Console.Write(result[i] + " ");
+            }
+            Console.WriteLine();
+        }
+        static int[] Prefix(string str)
+        {
+            int n = str.Length;
+            int[] p = new int[n];
+            for (int i = 1, j = 0; i < n; i++)
+            {
+                while (j > 0 && str[i] != str[j])
+                    j = p[j - 1];
+                if (str[i] == str[j])
+                    j++;
+                p[i] = j;
+            }
+            return p;
+        }
+        static int[] KMP(string s, string obr)
+        {
+            int n = s.Length;
+            int m = obr.Length;
+            int[] v = new int[n];
+            for (int i = 0; i < n; i++) v[i] = -1;
+            if (m > n) return v;
+            string newstr = obr + "#" + s;
+            int[] p = Prefix(newstr);
+
+            for (int i = 0; i < n; i++)
+            {
+                if (p[m + i + 1] == m)
+                {
+                    int pos = i - m + 1;
+                    if (pos >= 0)
+                        v[pos] = pos;
+                }
+            }
+            return v;
+        }
+    }
+}
+//я не разобрал лекцию и сделал немного по-своему :)
